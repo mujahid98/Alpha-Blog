@@ -17,6 +17,7 @@ class ArticlesController < ApplicationController
 
     def create 
         @article = Article.new(article_params)
+        @article.user = User.first # temporary mapping
         if @article.save
             flash[:notice] = "Article was saved successfully."
             redirect_to article_path(@article)
@@ -41,7 +42,7 @@ class ArticlesController < ApplicationController
     end
 
     private 
-    
+
     def set_article
         @article = Article.find(params[:id])
     end
