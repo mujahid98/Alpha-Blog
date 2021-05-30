@@ -15,7 +15,7 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        
+
     end
 
     def create 
@@ -39,10 +39,17 @@ class ArticlesController < ApplicationController
 
     end
 
-    def destroy 
-        @article.destroy
-        redirect_to articles_path
-    end
+    def destroy
+        respond_to do |format|
+            if @article.destroy
+              format.html { redirect_to articles_path }
+              format.json { head :no_content }
+              flash[:notice] = "Article deleted"
+            else
+                render 'index'
+            end
+        end
+     end
 
     private 
 
